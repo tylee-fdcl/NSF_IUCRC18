@@ -1,0 +1,388 @@
+%\documentclass[draft,hyperref={pdftex,pdfpagemode=none,pdfstartview=FitH}]{beamer}
+\documentclass[hyperref={pdftex,pdfpagemode=none,pdfstartview=Fit}]{beamer}
+\usepackage{mathptmx,helvet}
+\usepackage[scriptsize]{subfigure}
+\usepackage[3D]{movie15}
+%\usepackage{media9}
+%\usepackage{movie15}
+\usepackage{xcolor,tikz}
+\usepackage{animate}
+\usetikzlibrary{arrows}
+
+\newcommand{\norm}[1]{\ensuremath{\left\| #1 \right\|}}
+\newcommand{\abs}[1]{\ensuremath{\left| #1 \right|}}
+\newcommand{\bracket}[1]{\ensuremath{\left[ #1 \right]}}
+\newcommand{\braces}[1]{\ensuremath{\left\{ #1 \right\}}}
+\newcommand{\parenth}[1]{\ensuremath{\left( #1 \right)}}
+\newcommand{\ip}[1]{\ensuremath{\langle #1 \rangle}}
+\newcommand{\tr}[1]{\mbox{tr}\ensuremath{\!\bracket{#1}}}
+\newcommand{\deriv}[2]{\ensuremath{\frac{\partial #1}{\partial #2}}}
+\newcommand{\SO}{\ensuremath{\mathsf{SO(3)}}}
+\newcommand{\T}{\ensuremath{\mathsf{T}}}
+\newcommand{\G}{\ensuremath{\mathsf{G}}}
+\renewcommand{\L}{\ensuremath{\mathsf{L}}}
+\newcommand{\R}{\ensuremath{\mathsf{R}}}
+\newcommand{\I}{\ensuremath{\mathsf{I}}}
+\newcommand{\so}{\ensuremath{\mathfrak{so}(3)}}
+\newcommand{\SE}{\ensuremath{\mathsf{SE(3)}}}
+\newcommand{\se}{\ensuremath{\mathfrak{se}(3)}}
+\renewcommand{\Re}{\ensuremath{\mathbb{R}}}
+\newcommand{\Sph}{\ensuremath{\mathsf{S}}}
+\newcommand{\aSE}[2]{\ensuremath{\begin{bmatrix}#1&#2\\0&1\end{bmatrix}}}
+\newcommand{\ase}[2]{\ensuremath{\begin{bmatrix}#1&#2\\0&0\end{bmatrix}}}
+\newcommand{\D}{\ensuremath{\mathbf{D}}}
+\newcommand{\pair}[1]{\ensuremath{\left\langle #1 \right\rangle}}
+\newcommand{\met}[1]{\ensuremath{\langle\!\langle #1 \rangle\!\rangle}}
+\newcommand{\Ad}{\ensuremath{\mathrm{Ad}}}
+\newcommand{\ad}{\ensuremath{\mathrm{ad}}}
+\newcommand{\g}{\ensuremath{\mathfrak{g}}}
+\newcommand{\intp}{\ensuremath{\mathbf{i}}}
+\newcommand{\extd}{\ensuremath{\mathbf{d}}}
+\newcommand{\hor}{\ensuremath{\mathrm{hor}}}
+\newcommand{\ver}{\ensuremath{\mathrm{ver}}}
+\newcommand{\dyn}{\ensuremath{\mathrm{dyn}}}
+\newcommand{\geo}{\ensuremath{\mathrm{geo}}}
+
+\definecolor{RoyalBlue}{rgb}{0.25,0.41,0.88}
+\def\emph{\textcolor{RoyalBlue}}
+
+\definecolor{mygray}{gray}{0.9}
+
+\mode<presentation> {
+  \usetheme{Warsaw}
+  \usefonttheme{serif}
+  \setbeamercovered{transparent}
+}
+
+\newcommand{\mypaper}{}
+\newcommand{\myhead}{}
+
+\setbeamertemplate{headline} {%
+  \leavevmode%
+  \hbox{\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm]{author in head/foot}\hfill\insertsection
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm]{title in head/foot}\vskip2pt\myhead\vskip1pt
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+
+\setbeamertemplate{footline}%{split theme}
+{%
+  \leavevmode%
+  \hbox{\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm plus1fill]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm]{title in head/foot}
+%    \usebeamerfont{title in head/foot}\mypaper\hfill \insertframenumber/\inserttotalframenumber
+    \usebeamerfont{title in head/foot}\hfill \insertframenumber/\inserttotalframenumber
+  \end{beamercolorbox}}%
+  \vskip0pt%
+} \setbeamercolor{box}{fg=black,bg=yellow}
+
+\title[Adaptive Plasma Technologies]{Adaptive and Controllable Plasma Technologies:\\ Toward Autonomous Cancer Treatments}
+
+\author{$ $\\Taeyoung Lee, Michael Keidar\vspace*{0.1cm}\\
+{\footnotesize\selectfont %Flight Dynamics and Control Laboratory\\
+Mechanical and Aerospace Engineering\\ George Washington University}\\ $ $\\
+%{\scriptsize\selectfont Collaboration with N. Harris McClamroch (UMich), Melvin Leok (UCSD),\\ Vijay Kumar (UPenn), Fred Leve, Brien Flewelling (AFRL),\\ Tse-Huai Wu, Farhad Goodarzi, Evan Kaufmann, Daewon Lee (GWU)}
+}
+
+
+\institute[]{\normalsize NSF IUCRC IAB Meeting\\ August 2018}%\\ $ $\\
+%\institute[]{\small\selectfont March 2016\\ $ $\\
+%{\scriptsize
+%$^\star$Supported by AFRL, NSF, NRL, and ONR}}
+
+\date{}
+
+\definecolor{tmp}{rgb}{0.804,0.941,1.0}
+\setbeamercolor{numerical}{fg=black,bg=tmp}
+\setbeamercolor{exact}{fg=black,bg=red}
+
+\newcommand{\mediafolder}{/Users/tylee/Documents/Seminar/Drexel18/Figs}
+\newcommand{\mediafoldera}{/Users/tylee/Documents/Seminar/Drexel18/Figs/adaptive/ppt/media}
+\newcommand{\mediafolderb}{/Users/tylee/Documents/Seminar/Drexel18/Figs/MPC/ppt/media}
+\graphicspath{{\mediafolder/},{\mediafoldera/}}
+
+
+%\includeonly{Sec5}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+    \frametitle{Adaptive and Controllable Plasma Technologies}
+
+    \begin{itemize}
+        \item Overview
+            \begin{itemize}
+                \item Plasma has been successfully applied to \emph{cancer therapy}
+                \item Cell response to plasma depends on various treatment conditions and cancer type
+                \item Develop \emph{foundation and principles} for plasma cancer therapy
+                \item Construct \emph{optimal, feedback treatment strategies adaptive to cell response and diagnostics}, utilizing control system engineering
+            \end{itemize}
+    \end{itemize}
+    \vspace*{0.3cm}
+
+    \centerline{
+        \includemovie[draft,autostart,loop,poster,repeat,attach=false]{0.25\textwidth}{0.25\textwidth}{\mediafoldera/media1.mov}
+        \hspace*{0.3cm}
+        \includegraphics[height=0.25\textwidth]{image7.jpeg}
+        \hspace*{0.3cm}
+        \includegraphics[height=0.25\textwidth]{image3.png}
+    }
+
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{CAP Cancer Therapy}
+
+    \begin{itemize}
+        \item Cold Atmospheric Plasma (CAP)
+            \begin{itemize}
+                \item Ionized gases with ion temperature close to room temperature
+                \item Exhibit unique chemical and physical properties, such as reactive species, charges, and electric fields
+            \end{itemize}
+    \end{itemize}
+    \vspace*{0.1cm}
+
+    \centerline{
+        \includegraphics[height=0.35\textwidth]{Picture1.png}
+        \hspace*{0.3cm}
+        \includegraphics[height=0.4\textwidth]{CAP}
+    }
+\end{frame}
+
+\begin{frame}
+    \frametitle{CAP Cancer Therapy}
+
+    \begin{itemize}
+        \item CAP Cancer Treatment 
+            \begin{itemize}
+                \item CAP jet is applied to cancer cell or CAP treated medium is injected
+                \item CAP provides a rich environment of reactive oxygen/nitrogen species (RONS), charged particles, photons and an electric field
+                \item Assembling these species in various combination provides unprecedented, synergistic effects in cancer therapy
+            \end{itemize}
+            \vspace*{0.3cm}
+        \item Treatment Mechanism
+            \begin{itemize}
+                \item Selective rise of intracellular ROS initiates ROB-based death pathways
+                \item CAP causes severe damages in DNA, mitochondria, or cell membrane, which leads to apoptosis, i.e. \textit{programmed  death} of cancer cell
+                \item Exact mechanism to be defined
+            \end{itemize}
+    \end{itemize}]
+\end{frame}
+
+\begin{frame}
+    \frametitle{CAP Cancer Therapy}
+
+    \begin{itemize}        
+        \item Synergistic Effects
+            \begin{itemize}
+                \item Anticancer ability: inhibit cancer growth
+                \item Selectivity: eradicate cancer cells while preserving normal cells
+                \item Restoration: reinstate therapeutic effects of chemotherapy 
+                \item Illustrated by various experiments in vitro and in vivo
+            \end{itemize}
+    \end{itemize}
+    \vspace*{0.5cm}
+    \centerline{
+        \scriptsize\selectfont
+        \hspace*{-0.3cm}
+        \begin{tabular}{cc}
+            Apoptosis (Kieft et al. 2004) &
+            Growth inhibition  (Fridman et al. 2007) \\
+            Cytoskeletal damage (Lee et al. 2009) &
+            Selectivity  (Georgescu et al. 2010)\\
+            Cell cycle arrest  (Kim et al. 2010) &
+            DNA, mitochondrial damage (Kim et al. 2010) \\
+            Growth inhibition in vivo (Vandamme et al. 2011)& 
+            Increased intracellular ROS (Ahn et al. 2011) \\
+            Selective increase of ROS (Kim et al. 2013) &
+            Immunogenic cancer cell death (Lin et al. 2015) \\
+            Cell-based $H_2O_2$ generation (Keidat et al. 2017) & $\cdots$ \\
+        \end{tabular}
+    }
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{CAP Cancer Therapy}
+    \framesubtitle{Micro CAP Treatment for Glioblastoma in vitro}
+
+    \centerline{
+        \includegraphics[height=0.47\textwidth]{image20.png}
+        \hspace*{0.5cm}
+        \includegraphics[height=0.5\textwidth]{image19a}
+    }
+
+        \begin{center}
+            \scriptsize\selectfont
+            Z. Chen et al. `A Novel Micro Cold Atmospheric Plasma Device for Glioblastoma Both in Vitro and in Vivo'' \textit{Cancers} 9.6 (2017): 61.
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Adaptive Plasma Technologies} 
+
+    \begin{itemize}
+        \item Motivation
+            \begin{itemize}
+                \item Cancer cell response to CAP depends on various factors, including cancer type, CAP discharge voltage, gas flow rate and composition, and treatment duration 
+            \end{itemize}
+    \end{itemize}
+
+    \centerline{
+        \includegraphics[width=0.85\textwidth]{image28}
+    }
+\end{frame}
+
+\begin{frame}
+    \frametitle{Adaptive Plasma Technologies} 
+
+    \begin{itemize}
+        \item Adaptive Plasma Technologies
+            \begin{itemize}
+                \item Goal: develop feedback system based on cellular response and boundary conditions for plasma discharge
+                \item Investigate characteristics of cancer cell response to CAP under varying treatment conditions
+                \item Develop in situ diagnostics of cell response
+                \item Construct feedback treatment strategies adaptive to cell response
+            \end{itemize}
+    \end{itemize}
+    \centerline{
+        \includegraphics[width=0.65\textwidth]{image29}
+    }
+\end{frame}
+
+\begin{frame}
+    \frametitle{Adaptive Plasma Technologies} 
+    
+    \begin{itemize}
+        \item Interdisciplinary Research Toward Autonomous Cancer Therapy
+            \begin{itemize}
+                \item Interplay between plasma physics, mathematical oncology, control system engineering for the development of intelligent biomedical system
+                \item Adaptivity: treatment tailored to the particular cancer cell response
+                \item Optimality: treatment schedule optimized for cancer viability, selectivity, etc
+                \item Robustness: reject undesired behavior caused by modeling errors and uncertainties
+                \item Autonomy: autonomous scheduling for dose and frequency
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Adaptive Plasma Technologies} 
+    
+    \begin{itemize}
+        \item Feedback Control System
+            \begin{itemize}
+                \item Designed based on a mathematical description of a dynamic system
+                \item Dynamic model can be represented either by
+                    \begin{itemize}
+                        \item differential equations constructed by first principles
+                        \item a large set of data for input and output responses
+                    \end{itemize}
+            \end{itemize}
+            \vspace*{0.3cm}
+        \uncover<2->{
+        \item Adaptive Plasma Technology
+            \begin{itemize}
+                \item Challenges: complex dynamic system with limited number of data
+                \item Hybrid approach to construct an analytic model based on our knowledge and adjust it with experiments
+            \end{itemize}
+        }
+    \end{itemize}
+    \vspace*{0.3cm}
+            \centerline{
+        \scriptsize\selectfont
+		\tikzset{>=latex}
+        \begin{tikzpicture}
+            \draw[latex-latex, line width=0.05cm, <->] (0,0) -- (7.5,0);
+            \node[below] at (0,0) {\shortstack[c]{Mechanical and robotic\\systems}};
+            \node[above] at (0,0) {\shortstack[c]{Analytic model\\derived by first principles\\$\dot x =f(t,x,u)$}};
+            \node[below] at (7.5,0) {\shortstack[c]{Artificial intelligence\\Deep learning}};
+            \node[above] at (7.5,0) {\shortstack[c]{Input-output data\\from experiments\\$\{x_i(t),u_i(t)\}_{i=1}^N$}};
+        \only<2->{
+            \draw[-] (4.5,-0.2) -- (4.8,0.2) node[above] {I. MPC of U87};
+            \draw[-] (2.8,0.2) -- (2.8,-0.2) node[below] {\shortstack[c]{II. Oxidative stress\\based model}};
+        }
+        \end{tikzpicture}
+    }
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Model Predictive Control}
+
+    \begin{itemize}
+        \item Objective
+            \begin{itemize}
+                \item To adjust CAP treatment conditions adaptively based on the actual cancer cell response
+                \item Develop Model Predictive Feedback Control (MPC) scheme for CAP treatment
+            \end{itemize}
+            \vspace*{0.3cm}
+        \item Mathematical Modeling
+            \begin{itemize}
+                \item Cell viability for various treatments conditions is measured in vitro
+                \item Mathematical model is developed to predict the cell viability
+            \end{itemize}
+            \vspace*{0.3cm}
+        \item Optimal Control
+            \begin{itemize}
+                \item Optimal control problem is formulated to reduce the cancer viability below the desired level
+                \item Optimal control is repeatedly applied based on the actual cancer cell response (feedback)
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Model Predictive Control}
+
+    \begin{itemize}
+        \item Data Collection
+            \begin{itemize}
+                \item CAP is applied to U87 for varying treatment periods
+                \item Cell viability is measured by real time-Glo cell viability assay over 48 hours
+                \item Multiple temporal measurements indicate dynamic response of cancer cell to CAP
+            \end{itemize}
+    \end{itemize}
+    \vspace*{0.3cm}
+    \centerline{
+        \includegraphics[height=0.3\textwidth]{\mediafolderb/image4}
+        \hspace*{0.3cm}
+        \includegraphics[height=0.3\textwidth]{\mediafolderb/image5}
+    }
+        \begin{center}
+            \scriptsize\selectfont
+            Gjika et al. ``Adaptation of operational parameters of cold atmospheric plasma for in vitro treatment of cancer cells'' ACS Appl. Mater. Interfaces 2018
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Model Predictive Control}
+    \framesubtitle{Cell Viability for Varying Treatment Time}
+
+    \only<1>{
+        \centerline{
+            \includegraphics[height=0.45\textwidth]{\mediafolderb/image8}
+            \includegraphics[height=0.45\textwidth]{\mediafolderb/image9}
+        }
+        \centerline{$\Delta t = 0$\hspace*{0.5\textwidth}$\Delta t = 30\,\mathrm{sec}$}
+    }
+
+    \only<2>{
+        \centerline{
+            \includegraphics[height=0.45\textwidth]{\mediafolderb/image8}
+            \includegraphics[height=0.45\textwidth]{\mediafolderb/image9}
+        }
+        \centerline{$\Delta t = 0$\hspace*{0.5\textwidth}$\Delta t = 30\,\mathrm{sec}$}
+    }
+
+\end{frame}
+
+
+\end{document}
